@@ -14,7 +14,7 @@ deploy:
   helm:
     releases:
       - name: guestbook-dev
-        chartPath: guestbook
+        chartPath: helm
         artifactOverrides: 
           frontendImageName: guestbook-frontend
           backendImageName: guestbook-backend
