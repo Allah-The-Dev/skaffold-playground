@@ -11,7 +11,7 @@ metadata:
     app: guestbook
     tier: db
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: guestbook

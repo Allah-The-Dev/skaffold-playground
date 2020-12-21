@@ -6,7 +6,7 @@ metadata:
     app: guestbook
     tier: backend
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: guestbook
@@ -25,8 +25,8 @@ spec:
           - echo "Waiting for mongodb at go-guestbook-mongodb:27017 to go live before the BE..."; 
           - until (mongo --host go-guestbook-mongodb:27017 >/dev/null) do echo "Waiting for connection for 2 sec."; sleep 2; done
       containers:
-      - name: backend
-        image: go-guestbook-backend
+      - name: {{ .Chart.Name }}-backend
+        image: {{ .Values.backendImageName }}
         resources:
           limits:
             memory: "128Mi"

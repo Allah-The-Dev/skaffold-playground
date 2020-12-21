@@ -4,17 +4,20 @@ apiVersion: skaffold/v2beta4
 kind: Config
 build:
   artifacts:
-  - image: go-guestbook-backend
+  - image: guestbook-backend
     context: src/backend
-  - image: go-guestbook-frontend
+  - image: guestbook-frontend
     context: src/frontend
   tagPolicy:
     sha256: {}
 deploy:
-  kubectl:
-    manifests:
-    - ./kubernetes-manifests/*.service.yaml
-    - ./kubernetes-manifests/*.deployment.yaml
+  helm:
+    releases:
+      - name: guestbook-dev
+        chartPath: guestbook
+        artifactOverrides: 
+          frontendImageName: guestbook-frontend
+          backendImageName: guestbook-backend
 profiles:
 - name: cloudbuild
   build:
